@@ -1,121 +1,30 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // Import the Flutter material package
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp()); // Entry point of the Flutter application, runs MyApp widget
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Todo List',
+      title: 'Todo List', // Title of the application
       theme: ThemeData(
-        primaryColor: const Color.fromARGB(255, 7, 118, 173),
-        brightness: Brightness.dark,
-        fontFamily: 'OpenSans',
+        primaryColor: const Color.fromARGB(255, 7, 118, 173), // Primary color of the theme
+        brightness: Brightness.dark, // Set the brightness to dark mode
+        fontFamily: 'OpenSans', // Set the default font family
         textTheme: TextTheme(
-          headlineLarge: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-          titleLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          bodyLarge: TextStyle(fontSize: 18),
-          bodyMedium: TextStyle(fontSize: 14),
+          headlineLarge: TextStyle(fontSize: 36, fontWeight: FontWeight.bold), // Style for large headlines
+          titleLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), // Style for large titles
+          bodyLarge: TextStyle(fontSize: 18), // Style for large body text
+          bodyMedium: TextStyle(fontSize: 14), // Style for medium body text
         ),
         colorScheme: ColorScheme.dark(
-          primary: Color.fromARGB(255, 141, 0, 201),
-          secondary: Color.fromARGB(255, 183, 131, 239),
+          primary: Color.fromARGB(255, 141, 0, 201), // Primary color in the dark color scheme
+          secondary: Color.fromARGB(255, 183, 131, 239), // Secondary color in the dark color scheme
         ),
       ),
-      home: HomeScreen(),
-    );
-  }
-}
-
-class TodoItem {
-  int id;
-  String title;
-  bool isDone;
-
-  TodoItem({required this.id, required this.title, this.isDone = false});
-}
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final _todoItems = <TodoItem>[];
-  final _titleController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Todo List'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: _todoItems.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_todoItems[index].title),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Checkbox(
-                        value: _todoItems[index].isDone,
-                        onChanged: (value) {
-                          setState(() {
-                              int number = index +1;
-                              _todoItems[index].isDone = value!;
-                              print("task done $number");
-                          });
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            _todoItems.removeAt(index);
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _titleController,
-                    decoration: InputDecoration(labelText: 'Add Todo Item'),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_titleController.text.isNotEmpty) {
-                      setState(() {
-                        _todoItems.add(TodoItem(
-                          id: DateTime.now().millisecondsSinceEpoch,
-                          title: _titleController.text,
-                        ));
-                        _titleController.clear();
-                      });
-                    }
-                  },
-                  child: Text('Add'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      home: HomeScreen(), // Set the home screen of the application
     );
   }
 }
